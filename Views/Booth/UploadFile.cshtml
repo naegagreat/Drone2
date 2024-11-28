@@ -1,0 +1,33 @@
+﻿@model Drone2.Models.Booth
+
+
+@{
+    ViewData["Title"] = "Upload Booth";
+}
+
+<h1>Upload New Booth</h1>
+
+<form asp-action="UploadDetails" asp-controller="Booth" method="post" enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        <label for="Location">Location:</label>
+        <input type="text" class="form-control" name="Location"
+               required pattern="^(?!\d+$)[a-zA-Z0-9\s]+$"
+               title="Location must contain at least one letter and cannot be numbers only." />
+        <small class="form-text text-muted"></small>
+    </div>
+    <div class="form-group">
+        <label for="Size">Size (e.g. 20 X 20 X 30):</label>
+        <input type="text" class="form-control" name="Size" required pattern="^(\d+)\sX\s(\d+)\sX\s(\d+)$" title="Size must be in the format '20 X 20 X 30' and all numbers must be positive." />
+    </div>
+    <div class="form-group">
+        <label for="PricePerDay">Price per Day:</label>
+        <input type="number" class="form-control" name="PricePerDay" required min="1" title="Price must be greater than 0." />
+    </div>
+    <div class="form-group">
+        <label for="File">Upload Booth Layout (JPG, PNG, PDF, max 1000 KB):</label>
+        <input type="file" class="form-control-file" id="File" name="File" accept=".jpg,.png,.pdf">
+    </div>
+    <button type="submit" class="btn btn-primary">Update Booth</button>
+</form>
+<input type="hidden" name="ReservedBy" value="@User.Identity.Name" />

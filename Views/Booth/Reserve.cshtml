@@ -1,0 +1,42 @@
+﻿@model Drone2.Models.Reserve
+
+@{
+    ViewData["Title"] = "Reserve Booth";
+}
+
+<h1>Reserve a Booth</h1>
+
+<form method="POST" asp-controller="Booth" asp-action="Reserve">
+    <div class="form-group">
+        <label asp-for="UserName">Name:</label>
+        <input asp-for="UserName" class="form-control" />
+        <span asp-validation-for="UserName" class="text-danger"></span>
+    </div>
+
+
+    <div class="form-group">
+        <label asp-for="PhoneNumber">Phone Number:</label>
+        <input asp-for="PhoneNumber" class="form-control" />
+        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="StartDate">Start Date:</label>
+        <input asp-for="StartDate" class="form-control" type="date" />
+        <span asp-validation-for="StartDate" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="EndDate">End Date:</label>
+        <input asp-for="EndDate" class="form-control" type="date" />
+        <span asp-validation-for="EndDate" class="text-danger"></span>
+    </div>
+
+   <div class="form-group">
+    <label asp-for="BoothId">Booth ID:</label>
+    <input asp-for="BoothId" class="form-control" placeholder="Enter Booth ID" />
+    <span asp-validation-for="BoothId" class="text-danger"></span>
+</div>
+
+    <button type="submit" class="btn btn-primary mt-3">Reserve</button>
+</form>

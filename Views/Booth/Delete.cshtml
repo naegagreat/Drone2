@@ -1,0 +1,76 @@
+﻿@model Drone2.Models.Deleted
+
+<div class="container">
+    <h3 class="text-center">Uploaded by @User.Identity.Name</h3>
+    <table class="table text-center">
+        <thead>
+            <tr>
+                <th>Booth Id</th>
+                <th>Uploaded by</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.UploadedBooths != null && Model.UploadedBooths.Any())
+            {
+                @foreach (var booth in Model.UploadedBooths)
+                {
+                    <tr>
+                        <td>@booth.Id</td>
+                        <td>@booth.UploadedBy</td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@booth.Id" class="btn btn-warning">Edit</a>
+                            <form asp-action="Delete" asp-route-id="@booth.Id" method="post" style="display:inline;"
+                                  onsubmit="return confirm('Are you sure to delete Booth ID: @booth.Id?');">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="3" class="text-center">None</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <h3 class="text-center">Reserved by @User.Identity.Name</h3>
+    <table class="table text-center">
+        <thead>
+            <tr>
+                <th>Booth Id</th>
+                <th>Reserved by</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.ReservedBooths != null && Model.ReservedBooths.Any())
+            {
+                @foreach (var reservation in Model.ReservedBooths)
+                {
+                    <tr>
+                        <td>@reservation.BoothId</td> <!-- ID ของ Reservation -->
+                        <td>@reservation.Booth?.Location</td> <!-- ที่ตั้งของ Booth -->
+                        <td>
+                            <form asp-action="Cancel" asp-route-id="@reservation.Id" method="post" style="display:inline;">
+                                <button type="submit" class="btn btn-danger">Cancel</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="3" class="text-center">No reservations found</td>
+                </tr>
+            }
+         
+                </tbody>
+            </table>
+</div>
+
+
