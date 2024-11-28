@@ -6,7 +6,7 @@ EXPOSE 80
 # Build stage
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["Drone2/Drone2.csproj", "Drone2/"]
+COPY ["Drone2.csproj", "Drone2/"]
 RUN dotnet restore "Drone2/Drone2.csproj"
 COPY . .
 WORKDIR "/src/Drone2"
