@@ -65,7 +65,7 @@ namespace Drone2.Controllers
 
             return View(model); // ส่ง Model ไปยัง View
         }
-      
+
         [Authorize]
         [HttpGet("Booth/Reserve/{boothId:int}")]
         public IActionResult Reserve(int boothId)

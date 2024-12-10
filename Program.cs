@@ -1,15 +1,23 @@
 ﻿using System;
 using Drone2.Data;
 using Drone2.Models;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
+using Npgsql.EntityFrameworkCore.PostgreSQL;
+
 
 var builder = WebApplication.CreateBuilder(args);
+builder.WebHost.UseUrls("http://*:8080");
+builder.Services.AddDataProtection()
+    .PersistKeysToFileSystem(new DirectoryInfo(@"/keys"))
+    .SetApplicationName("drone2");
+
 
 // Add services to the container.
 builder.Services.AddDbContext<ApplicationDBContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("UploadConnection")));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("UploadConnection")));
 
 // Configure Identity
 builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
@@ -56,7 +64,6 @@ app.UseStaticFiles(new StaticFileOptions
         Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads")),
     RequestPath = "/uploads"
 });
-
 
 // Add default static file middleware
 app.UseStaticFiles();
